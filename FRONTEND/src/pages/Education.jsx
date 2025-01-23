@@ -1,13 +1,40 @@
-import React from 'react'
+import React from 'react';
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
 import TIMELINE from '../assets/TIMELINE.png'
 import NOLOGO from '../assets/NO LOGO.png'
 
 
 function Education() {
+
+  // // const [educationData, setEducationData] = useState([]);
+  // const [loading, setLoading] = useState(true);
+
+  // useEffect(() => {
+  //   // Fetch education details from PostgreSQL through a backend API
+  //   axios
+  //     .get('http://localhost:8080/api/education') // Replace with your API URL
+  //     .then((response) => {
+  //       setEducationData(response.data); // Assuming the API response contains an array of education entries
+  //       setLoading(false);
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error fetching education data:', error);
+  //       setLoading(false);
+  //     });
+  // }, []);
+
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
+
   return (
     <div className='px-20 pt-20 grid grid-cols-12 gap-4'>
 
       <div className='col-start-1 grid grid-rows-4 justify-items-end'>
+        {/* {educationData.map((entry, index) => (
+          <div key={index}>{entry.timeline}</div>
+        ))} */}
       <div>2016</div>
       <div>2017 - 2019</div>
       <div>2020 - 2024</div>
@@ -40,6 +67,15 @@ function Education() {
             <div>Koramangala,Beguluru</div>
           </div>
         
+          {/* {educationData.map((entry, index) => (
+          <div key={index} className="content-start mb-6">
+            <div className="text-2xl font-semibold mb-3">{entry.title}</div>
+            <div>{entry.institution}</div>
+            {entry.location && <div>{entry.location}</div>}
+          </div>
+        ))} */}
+
+
       </div>
       <div className="col-start-8 col-end-12 bg-zinc-800 rounded-xl justify-items-center content-center">
         <img src={NOLOGO} alt="" />

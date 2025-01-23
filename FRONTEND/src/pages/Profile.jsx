@@ -5,6 +5,7 @@ import NOOPURAM from '../assets/NOOPURAM23.png';
 
 function Profile() {
   const [currentRole, setCurrentRole] = useState("ARJUN SAJEEV N");
+  // eslint-disable-next-line
   const roles = ["ARJUN SAJEEV N", "DEVELOPER", "DESIGNER", "PHOTOGRAPHER" ];
   
   useEffect(() => {
@@ -14,7 +15,7 @@ function Profile() {
         const nextIndex = (currentIndex + 1) % roles.length;
         return roles[nextIndex];
       });
-    }, 2000);
+    }, 1500);
   
     return () => clearInterval(interval);
   }, [roles]); 

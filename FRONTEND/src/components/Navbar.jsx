@@ -15,7 +15,8 @@ function Navbar() {
           <Link to="/projects" className="hover:underline">PROJECTS</Link>
           </div>
         <div className="contact">
-            <button>CONTACT</button>
+        <Link to="/contact" className="hover:underline"><button>CONTACT</button></Link>
+            
         </div>
     </div>
   )

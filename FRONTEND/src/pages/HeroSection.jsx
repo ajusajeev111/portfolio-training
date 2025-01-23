@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react';
 import PROPIC from '../assets/propic.png'
 import NAME from '../assets/NAME.png'
+import GITHUB from '../assets/GITHUB.png'
+import INSTAGRAM from '../assets/INSTAGRAM.png'
+import LINKEDIN from '../assets/LINKEDIN.png'
+
 // import DOWNLOAD from '../assets/DOWNLOAD.png'
 
 function HeroSection() {
+
+  const [hover, setHover] = useState(false);
+  
   return (
     <div class=" px-20 pt-10 grid grid-cols-3 gap-4">
         <div class="col-span-1">
             <img src={PROPIC} alt="PROFILE" />
 
         </div>
-        <div class="col-span-2 row-span-2 p-10 grid place-items-center content-between">
+        <div class="col-span-2 row-span-2 pt-10 grid place-items-center content-between">
           <div>
               <img src={NAME} alt="NAME" /> 
               <div className="pt-4 flex justify-between text-xl font-light">
@@ -34,9 +41,27 @@ function HeroSection() {
             
           </div>
         </div>
-        <div class=" text-center content-center text-2xl col-span-1 border bg-zinc-900 border-gray-800 rounded-lg p-10 hover:bg-white hover:text-black">
-            FIND ME AT
-        </div>
+        <div
+        className="flex justify-center items-center col-span-1 border bg-zinc-900 border-gray-800 rounded-lg p-10 hover:bg-white hover:text-black cursor-pointer"
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+      >
+        {!hover ? (
+          <div className="text-2xl">FIND ME AT</div>
+        ) : (
+          <div className="flex gap-4 ">
+            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+              <img src={LINKEDIN} alt="LinkedIn" className=" opacity-40 hover:opacity-100" />
+            </a>
+            <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+              <img src={GITHUB} alt="GitHub" className="opacity-40  hover:opacity-100" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <img src={INSTAGRAM} alt="Instagram" className="opacity-40  hover:opacity-100" />
+            </a>
+          </div>
+        )}
+      </div>
     </div>
   )
 }

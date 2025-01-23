@@ -18,7 +18,8 @@ public class EducationService {
     }
 
     public List<Education> getAllEducation() {
-        return educationRepo.findAll();
+        List<Education> educationList = educationRepo.findAll();
+        System.out.println("Fetched from Repository: " + educationList); // Log data here
+        return educationList;
     }
-
 }
