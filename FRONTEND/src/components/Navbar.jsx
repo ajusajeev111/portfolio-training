@@ -11,7 +11,7 @@ function Navbar() {
         <div className="flex flex-row gap-20 items-center">
           <Link to="/profile" className="hover:underline">PROFILE</Link>
           <Link to="/education" className="hover:underline">EDUCATION</Link>
-          <Link to="/skills" className="hover:underline">SKILLS</Link>
+          {/* <Link to="/skills" className="hover:underline">SKILLS</Link> */}
           <Link to="/projects" className="hover:underline">PROJECTS</Link>
           </div>
         <div className="contact">

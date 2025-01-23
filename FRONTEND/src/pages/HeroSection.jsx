@@ -34,7 +34,7 @@ function HeroSection() {
             
           </div>
         </div>
-        <div class=" text-center content-center text-2xl col-span-1 border border-gray-800 rounded-lg p-10">
+        <div class=" text-center content-center text-2xl col-span-1 border bg-zinc-900 border-gray-800 rounded-lg p-10 hover:bg-white hover:text-black">
             FIND ME AT
         </div>
     </div>
