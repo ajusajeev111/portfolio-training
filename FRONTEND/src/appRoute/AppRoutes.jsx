@@ -4,6 +4,7 @@ import HeroSection from '../pages/HeroSection';
 import Profile from '../pages/Profile';
 import Education from '../pages/Education';
 import Projects from '../pages/Projects';
+import ProjectDetails from '../pages/ProjectDetails';
 
 const AppRoutes = () => {
 
@@ -14,6 +15,7 @@ const AppRoutes = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/education" element={<Education />} />
           <Route path="/projects" element={<Projects/>} />
+          <Route path="/project/:id" element={<ProjectDetails />} />
       </Routes>
     </div>
   )

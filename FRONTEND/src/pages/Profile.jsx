@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import DOWNLOAD from '../assets/DOWNLOAD.png';
 import DYUKSHA from '../assets/DYUKSHA.png';
 import NOOPURAM from '../assets/NOOPURAM23.png';
@@ -7,7 +8,11 @@ import Resume from '../assets/ATS RESUME.pdf';
 
 function Profile() {
   const [currentRole, setCurrentRole] = useState("ARJUN SAJEEV N");
-  const skills = ['React', 'Figma', 'Frontend', 'Database', 'Backend', 'Development', 'JavaScript', 'PostgreSQL'];
+
+  const [skills, setSkills] = useState(null);
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   
   
   useEffect(() => {
@@ -32,6 +37,54 @@ function Profile() {
     link.click(); 
   };
 
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/profiles`)
+      .then((response) => {
+        console.log(response.data);
+        setProfile(response.data.data[0]);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching profile data:', error);
+        setError('Failed to fetch profile data');
+        setLoading(false);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/api/skills`)
+      .then((response) => {
+        console.log(response.data);
+        setSkills(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching profile data:', error);
+        setError('Failed to fetch profile data');
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (!profile) {
+    return <div>No profile data available</div>;
+  }
+
+
+  
+
+
+
   return (
     <div className='lg:px-20 md:px-12 pt-20 pb-2 xl:pb-20 grid grid-cols-3 gap-4'>
       <div className='text-md xl:text-3xl'>Hello,</div>
@@ -51,7 +104,7 @@ function Profile() {
           </div>
         </div>
       </div>
-      <div className="col-span-3 text-md xl:text-2xl">A Creative Graphic Designer and Web Developer.</div>
+      <div className="col-span-3 text-md xl:text-2xl">{profile?.brief || 'Designation not available'}</div>
       <div className="col-span-3"></div>
       <div className="col-span-3"></div>
       <div className="col-span-3"></div>
@@ -98,7 +151,7 @@ function Profile() {
         key={index} 
         className='border border-gray-800 rounded-full p-1 xl:p-4 text-center hover:bg-zinc-800 bg-zinc-900'
       >
-        {skill}
+        {skill.name}
       </div>
     ))} 
       </div>

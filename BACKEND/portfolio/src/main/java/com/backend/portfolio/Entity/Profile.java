@@ -2,15 +2,23 @@ package com.backend.portfolio.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Entity
 @Data
 public class Profile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
+    private UUID id;
+
 
     @Column(name = "name")
     private String name;
@@ -24,14 +32,28 @@ public class Profile {
     @Column(name = "home_town")
     private String homeTown;
 
-    @Column(name = "about_me")
+    @Lob
+    @Column(name = "about_me", columnDefinition = "TEXT")
     private String aboutMe;
 
-    public Integer getId() {
+    @Column(name = "brief")
+    private String brief;
+
+    @Column(name = "designation")
+    private String designation;
+
+    @Column(name = "company")
+    private String company;
+
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -73,5 +95,37 @@ public class Profile {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

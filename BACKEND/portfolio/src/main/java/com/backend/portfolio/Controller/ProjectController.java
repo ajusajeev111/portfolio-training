@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,30 +25,59 @@ public class ProjectController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Project>> getAllProjects() {
-        return ResponseEntity.ok(projectService.getAllProjects());
+    public ResponseEntity<Map<String, Object>> getAllProjects() {
+        List<Project> projects = projectService.getAllProjects();
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Projects retrieved successfully");
+        response.put("data", projects);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Project> getProjectById(@PathVariable UUID id) {
+    public ResponseEntity<Map<String, Object>> getProjectById(@PathVariable UUID id) {
         Optional<Project> project = projectService.getProjectById(id);
-        return project.map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Map<String, Object> response = new HashMap<>();
+        if (project.isPresent()) {
+            response.put("status", "success");
+            response.put("message", "Project retrieved successfully");
+            response.put("data", project.get());
+            return ResponseEntity.ok(response);
+        } else {
+            response.put("status", "error");
+            response.put("message", "Project not found");
+            response.put("data", null);
+            return ResponseEntity.status(404).body(response);
+        }
     }
 
     @PostMapping
-    public ResponseEntity<Project> addProject(@RequestBody Project project) {
-        return ResponseEntity.ok(projectService.addProject(project));
+    public ResponseEntity<Map<String, Object>> addProject(@RequestBody Project project) {
+        Project createdProject = projectService.addProject(project);
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Project created successfully");
+        response.put("data", createdProject);
+        return ResponseEntity.status(201).body(response);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Project> updateProject(@PathVariable UUID id, @RequestBody Project projectDetails) {
-        return ResponseEntity.ok(projectService.updateProject(id, projectDetails));
+    public ResponseEntity<Map<String, Object>> updateProject(@PathVariable UUID id, @RequestBody Project projectDetails) {
+        Project updatedProject = projectService.updateProject(id, projectDetails);
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Project updated successfully");
+        response.put("data", updatedProject);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProject(@PathVariable UUID id) {
+    public ResponseEntity<Map<String, Object>> deleteProject(@PathVariable UUID id) {
         projectService.deleteProject(id);
-        return ResponseEntity.noContent().build();
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Project deleted successfully");
+        response.put("data", null);
+        return ResponseEntity.status(204).body(response);
     }
 }
