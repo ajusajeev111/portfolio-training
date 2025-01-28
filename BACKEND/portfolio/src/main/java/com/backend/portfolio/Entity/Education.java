@@ -2,6 +2,9 @@ package com.backend.portfolio.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 @Entity
 @Data
@@ -9,8 +12,13 @@ import lombok.Data;
 public class Education {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
+    private UUID id;
 
     @Column(name = "timeline") // Add if column name is different
     private String timeline;
@@ -18,11 +26,17 @@ public class Education {
     @Column(name = "qualification")
     private String qualification;
 
-    public Integer getId() {
+    @Column(name = "institution")
+    private String institution;
+
+    @Column(name = "place")
+    private String place;
+
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -57,10 +71,4 @@ public class Education {
     public void setPlace(String place) {
         this.place = place;
     }
-
-    @Column(name = "institution")
-    private String institution;
-
-    @Column(name = "place")
-    private String place;
 }
