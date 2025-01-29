@@ -26,7 +26,7 @@ function ProjectDetails() {
   }
 
   return (
-    <div className=" rounded-xl p-10 text-white ">
+    <div className=" h-screen rounded-xl p-10 text-white ">
       {projectDetails ? (
         <div className="relative">
           <div className="text-3xl font-bold mb-4">{projectDetails.heading}</div>

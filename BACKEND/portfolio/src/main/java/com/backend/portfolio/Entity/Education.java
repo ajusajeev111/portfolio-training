@@ -32,6 +32,10 @@ public class Education {
     @Column(name = "place")
     private String place;
 
+    @Lob
+    @Column(name = "image")
+    private byte[] image;
+
     public UUID getId() {
         return id;
     }
@@ -70,5 +74,13 @@ public class Education {
 
     public void setPlace(String place) {
         this.place = place;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }

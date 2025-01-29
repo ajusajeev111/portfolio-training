@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import LOGO from '../assets/LOGOFULL.png'
 
 function Projects() {
   const [projectData, setProjectData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [error, setError] = useState(null);
 
   // Custom hook to detect screen size
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 640);
@@ -28,12 +30,20 @@ function Projects() {
       })
       .catch((error) => {
         console.error('Error fetching education data:', error);
+        setError('Failed to fetch profile data');
         setLoading(false);
       });
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+
+  }
+
+
+  if (error) {
+    return <div className='h-screen flex content-center items-center justify-center'>
+    <img className=' w-64 h-48 opacity-15' src={LOGO} alt="" />
+    </div>;
   }
 
   return (
@@ -81,7 +91,7 @@ function Projects() {
         ))}
       </div>
 
-      <div className="col-start-7 col-end-12 rounded-xl p-6 text-white hidden sm:block ">
+      <div className=" col-start-7 col-end-12 rounded-xl p-6 text-white hidden sm:block ">
         {selectedProject ? (
           <div className="relative">
             <div className="text-3xl font-bold mb-4">{selectedProject.heading}</div>

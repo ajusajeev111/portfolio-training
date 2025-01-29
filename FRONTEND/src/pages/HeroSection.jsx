@@ -18,22 +18,30 @@ function HeroSection() {
       .get(`http://localhost:8080/api/profiles`)
       .then((response) => {
         console.log(response.data);
-        setProfile(response.data.data[0]);
+        
+        // Ensure data exists and is an array before accessing index 0
+        if (response.data && Array.isArray(response.data.data) && response.data.data.length > 0) {
+          setProfile(response.data.data[0]);
+        } else {
+          setProfile(null); // Explicitly setting it to null if no valid data
+        }
+        
         setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching profile data:', error);
-        setError('');
+        setError('Failed to load profile data');
         setLoading(false);
       });
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className='h-screen flex content-center items-center justify-center'>
+    <img className=' w-64 h-48 opacity-15' src={LOGO} alt="" />
+    </div>;
   }
 
   if (!profile) {

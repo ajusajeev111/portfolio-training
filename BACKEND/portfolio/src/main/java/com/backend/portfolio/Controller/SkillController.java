@@ -2,6 +2,7 @@ package com.backend.portfolio.Controller;
 
 import com.backend.portfolio.Entity.Skill;
 import com.backend.portfolio.Service.SkillService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,12 +71,14 @@ public class SkillController {
 
     // Delete a skill by ID
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSkill(@PathVariable UUID id) {
+    public ResponseEntity<String> deleteSkill(@PathVariable UUID id) {
         try {
-            skillService.deleteSkill(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // 204 if deleted successfully
+            skillService.deleteSkill(id); // Assuming this method throws an exception if the skill is not found
+            return ResponseEntity.ok("Skill Deleted Successfuly"); // 204 No Content
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Skill not found.");
         } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 if skill not found
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the skill.");
         }
     }
 }

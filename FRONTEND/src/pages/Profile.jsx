@@ -5,6 +5,7 @@ import DYUKSHA from '../assets/DYUKSHA.png';
 import NOOPURAM from '../assets/NOOPURAM23.png';
 import PHOTOGRAPHY from '../assets/CAMERA.png'
 import Resume from '../assets/ATS RESUME.pdf';
+import LOGO from '../assets/LOGOFULL.png'
 
 function Profile() {
   const [currentRole, setCurrentRole] = useState("ARJUN SAJEEV N");
@@ -69,15 +70,19 @@ function Profile() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div className='h-screen flex content-center items-center justify-center'>
+    <img className=' w-64 h-48 opacity-15' src={LOGO} alt="" />
+    </div>;
   }
 
   if (!profile) {
-    return <div>No profile data available</div>;
+    return <div className='h-screen flex content-center items-center justify-center'>
+    <img className=' w-64 h-48 opacity-15' src={LOGO} alt="" />
+    </div>;
   }
 
 
